@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/presentation/pages/dashboard_page.dart';
 import 'package:flutter_application_1/presentation/pages/forgot_password_page.dart';
 import 'package:flutter_application_1/presentation/pages/login_page.dart';
+import 'package:flutter_application_1/presentation/pages/profile_page.dart';
 import 'package:flutter_application_1/presentation/pages/register_page.dart';
 import 'package:flutter_application_1/presentation/pages/splash_page.dart';
 
@@ -24,4 +26,6 @@ Map<String, WidgetBuilder> get appRoutes => <String, WidgetBuilder>{
   AppRoutes.login: (context) => const LoginPage(),
   AppRoutes.register: (context) => const RegisterPage(),
   AppRoutes.forgotPassword: (context) => const ForgotPasswordPage(),
+  AppRoutes.dashboard: (context) => const DashboardPage(),
+  AppRoutes.profile: (context) => const ProfilePage(),
 };

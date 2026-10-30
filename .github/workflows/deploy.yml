@@ -1,0 +1,42 @@
+name: Deploy UserMaster to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+# Permisos requeridos para publicar en GitHub Pages
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    name: Build & Deploy Web App
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Clonar repositorio
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Configurar Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: 📦 Instalar dependencias
+        run: flutter pub get
+
+      - name: 🧪 Ejecutar pruebas unitarias y de widgets
+        run: flutter test
+
+      - name: 🌐 Compilar aplicación Web para producción
+        run: flutter build web --release --base-href "/${{ github.event.repository.name }}/"
+
+      - name: 🚀 Desplegar en GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build/web
